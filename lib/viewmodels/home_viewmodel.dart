@@ -11,13 +11,11 @@ class HomeViewModel extends ChangeNotifier {
 
   List<UserModel> get userList => _userList;
 
-  bool _isLoad = false;
+  bool _isLoad = true;
 
   bool get isLoad => _isLoad;
 
   Future<void> fetchUserList() async {
-    _isLoad = true;
-    notifyListeners();
     FireStoreUser().getUsers().then((docs) {
       for (int i = 0; i < docs.length; i++) {
         _userList.add(UserModel(docs[i]["name"], docs[i]["profileImg"]));
