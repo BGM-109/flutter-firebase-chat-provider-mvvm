@@ -33,9 +33,11 @@ class _AccountViewState extends State<AccountView> {
                     prefixIcon: Icon(Icons.drive_file_rename_outline),
                     labelText: "닉네임변경",
                     border: OutlineInputBorder()),
-                validator: (nickName) {
-                  if (nickName != null && nickName.length < 2) {
+                validator: (value) {
+                  if (value != null && value.length < 2) {
                     return "닉네임은 2글자 이상 입력해주세요";
+                  } else if (value != null && value == vm.currentUser.name) {
+                    return "다른 닉네임을 넣어 주세요";
                   } else {
                     return null;
                   }
@@ -49,6 +51,7 @@ class _AccountViewState extends State<AccountView> {
                     final bool isValid = _formKey.currentState!.validate();
                     if (isValid) {
                       vm.changeUser(nickName);
+                      _formKey.currentState!.reset();
                     }
                   },
                   child: const Text("변경하기")),
