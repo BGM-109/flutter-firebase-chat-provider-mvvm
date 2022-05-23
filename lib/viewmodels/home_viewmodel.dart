@@ -20,8 +20,7 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
     FireStoreUser().getUsers().then((docs) {
       for (int i = 0; i < docs.length; i++) {
-        _userList.add(UserModel(docs[i]["name"],
-            "https://firebasestorage.googleapis.com/v0/b/flutter-firebase-chat-mvvm.appspot.com/o/c5c470298d527ef65eb52883f0f186c48f324a0b9c48f77dbce3a43bd11ce785.png?alt=media&token=ba08de8e-4b0c-453d-b5e4-0a3663329359"));
+        _userList.add(UserModel(docs[i]["name"], docs[i]["profileImg"]));
       }
     });
     _isLoad = false;
