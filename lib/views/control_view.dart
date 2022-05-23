@@ -24,7 +24,7 @@ class ControlView extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
-            label: '이름',
+            label: '유저정보',
           ),
         ],
       ),
