@@ -16,7 +16,7 @@ class ChatView extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ChatDetailView()),
+                      builder: (context) => ChatDetailView(roomId: "123")),
                 );
               },
               child: Padding(

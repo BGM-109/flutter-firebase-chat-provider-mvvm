@@ -5,7 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class ChatDetailView extends StatefulWidget {
-  const ChatDetailView({Key? key}) : super(key: key);
+  const ChatDetailView({Key? key, required this.roomId}) : super(key: key);
+  final String roomId;
 
   @override
   State<ChatDetailView> createState() => _ChatDetailViewState();
