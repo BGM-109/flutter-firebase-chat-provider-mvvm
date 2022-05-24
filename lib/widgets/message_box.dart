@@ -17,7 +17,14 @@ class MessageBox extends StatelessWidget {
   Widget build(BuildContext context) {
     const currentUserId = "gn3jZorLmdhqN9KzEva8";
     List<Widget> children = [
-      Text(content),
+      Container(
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+          decoration: BoxDecoration(
+              color: currentUserId == idTo
+                  ? Colors.white
+                  : Colors.lightGreenAccent,
+              borderRadius: BorderRadius.circular(16.0)),
+          child: Text(content)),
       const SizedBox(
         width: 12.0,
       ),

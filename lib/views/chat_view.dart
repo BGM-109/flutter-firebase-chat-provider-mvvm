@@ -32,10 +32,10 @@ class ChatView extends StatelessWidget {
         actionsIconTheme: const IconThemeData(color: Colors.black),
       ),
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         children: [
           const SearchInput(),
-          SizedBox(
+          const SizedBox(
             height: 14.0,
           ),
           StreamBuilder<QuerySnapshot>(

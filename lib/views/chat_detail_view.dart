@@ -21,8 +21,8 @@ class _ChatDetailViewState extends State<ChatDetailView> {
   String _content = "";
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _textEditingController = TextEditingController();
-  String peerProfileImg =
-      "https://firebasestorage.googleapis.com/v0/b/flutter-firebase-chat-mvvm.appspot.com/o/20201110160126516.jpeg?alt=media&token=bc979b27-5e0a-494c-8aaf-f93c9ae2a8ca";
+  String peerProfileImg = "";
+  String peerName = "";
 
   @override
   void initState() {
@@ -31,6 +31,7 @@ class _ChatDetailViewState extends State<ChatDetailView> {
       var doc = await FireStoreUser().getUserFromId(widget.peerId);
       UserModel peer = doc.data() as UserModel;
       peerProfileImg = peer.profileImg;
+      peerName = peer.name;
       setState(() {});
     });
   }
@@ -39,8 +40,29 @@ class _ChatDetailViewState extends State<ChatDetailView> {
   Widget build(BuildContext context) {
     final vm = context.watch<ChatDetailViewModel>();
     return Scaffold(
+        backgroundColor: Colors.blueAccent.shade100,
         appBar: AppBar(
-          title: const Text("채팅방"),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: Text(
+            peerName,
+          ),
+          titleSpacing: 0,
+          titleTextStyle: const TextStyle(color: Colors.black, fontSize: 18.0),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back_ios),
+          ),
+          iconTheme: const IconThemeData(color: Colors.black),
+          actions: [
+            IconButton(
+                onPressed: () {}, icon: const Icon(Icons.search_outlined)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.call_outlined)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.menu_outlined)),
+          ],
+          actionsIconTheme: const IconThemeData(color: Colors.black),
         ),
         body: Column(
           children: [
