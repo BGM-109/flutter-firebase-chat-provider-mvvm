@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_chat/models/chat_message_model.dart';
 import 'package:flutter_firebase_chat/models/user_model.dart';
 import 'package:flutter_firebase_chat/service/firestore_user.dart';
 import 'package:flutter_firebase_chat/viewmodels/chat_detail_viewmodel.dart';
+import 'package:flutter_firebase_chat/widgets/message_box.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
@@ -108,45 +108,5 @@ class _ChatDetailViewState extends State<ChatDetailView> {
             )
           ],
         ));
-  }
-}
-
-class MessageBox extends StatelessWidget {
-  const MessageBox(
-      {Key? key,
-      required this.content,
-      required this.idTo,
-      required this.idFrom,
-      required this.profileImg})
-      : super(key: key);
-  final String content;
-  final String idTo;
-  final String idFrom;
-  final String profileImg;
-
-  @override
-  Widget build(BuildContext context) {
-    const currentUserId = "gn3jZorLmdhqN9KzEva8";
-    List<Widget> children = [
-      Text(content),
-      const SizedBox(
-        width: 12.0,
-      ),
-      CircleAvatar(
-        backgroundColor: Colors.black,
-        backgroundImage: NetworkImage(profileImg),
-        radius: 20.0,
-      )
-    ];
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0),
-      child: Row(
-        mainAxisAlignment: currentUserId == idTo
-            ? MainAxisAlignment.start
-            : MainAxisAlignment.end,
-        mainAxisSize: MainAxisSize.max,
-        children: currentUserId == idTo ? children.reversed.toList() : children,
-      ),
-    );
   }
 }

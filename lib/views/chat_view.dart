@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_chat/viewmodels/chat_viewmodel.dart';
-import 'package:flutter_firebase_chat/views/chat_detail_view.dart';
 import 'package:provider/provider.dart';
 
 class ChatView extends StatelessWidget {

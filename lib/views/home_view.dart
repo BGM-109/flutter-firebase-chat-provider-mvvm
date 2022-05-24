@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_chat/models/user_model.dart';
 import 'package:flutter_firebase_chat/viewmodels/home_viewmodel.dart';
-import 'package:flutter_firebase_chat/views/chat_detail_view.dart';
 import 'package:flutter_firebase_chat/widgets/loader.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {
