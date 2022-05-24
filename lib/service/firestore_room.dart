@@ -7,11 +7,11 @@ class FireStoreRoom {
   final CollectionReference _roomCollectionRef =
       FirebaseFirestore.instance.collection("rooms");
 
-  Future<List<QueryDocumentSnapshot>> getRooms(String docId) async {
-    QuerySnapshot results = await _roomCollectionRef
-        .where("members", arrayContainsAny: [docId]).get();
-
-    return results.docs;
+  Stream<QuerySnapshot> getRoomsFromUserId(
+    String userId,
+  ) {
+    return _roomCollectionRef
+        .where('members', arrayContainsAny: [userId]).snapshots();
   }
 
   Future<DocumentSnapshot> getRoomMessages(String roomId) async {
@@ -23,7 +23,8 @@ class FireStoreRoom {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => ChatDetailView(roomId: value.id, peerId: peerId))),
+                  builder: (context) =>
+                      ChatDetailView(roomId: value.id, peerId: peerId))),
           Fluttertoast.showToast(msg: "채팅방이 생성되었습니다.")
         });
   }
@@ -41,8 +42,8 @@ class FireStoreRoom {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              ChatDetailView(roomId: res.docs.first.id, peerId: peerId))),
+                          builder: (context) => ChatDetailView(
+                              roomId: res.docs.first.id, peerId: peerId))),
                   Fluttertoast.showToast(msg: "채팅방으로 이동하였습니다.")
                 }
             });
