@@ -12,13 +12,7 @@ class ChatView extends StatelessWidget {
     return ListView(
       children: vm.rooms
           .map((r) => InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ChatDetailView(roomId: "123")),
-                );
-              },
+              onTap: () {},
               child: Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: Text(r["from"]),

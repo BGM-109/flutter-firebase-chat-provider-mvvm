@@ -1,17 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_chat/models/user_model.dart';
 import 'package:flutter_firebase_chat/service/firestore_chat.dart';
+import 'package:flutter_firebase_chat/service/firestore_user.dart';
 
 class ChatDetailViewModel extends ChangeNotifier {
-  ChatDetailViewModel() {
-    getMessages("test");
-  }
-
   Stream<QuerySnapshot> getMessages(String roomId) {
-    return FireStoreChat().getChatMessage("test");
+    return FireStoreChat().getChatMessage(roomId);
   }
 
-  void sendMessage(String content) {
-    FireStoreChat().sendChatMessage(content, 1, "test", "조바이든", "트럼프");
+  void sendMessage(String content, int type, String roomId,
+      String currentUserId, String peerId) {
+    FireStoreChat()
+        .sendChatMessage(content, type, roomId, currentUserId, peerId);
   }
 }

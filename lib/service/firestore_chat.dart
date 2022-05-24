@@ -28,4 +28,8 @@ class FireStoreChat {
 
     await ref.add(chatMessages.toJson());
   }
+
+  Future<DocumentSnapshot> getPeers(String roomId) async {
+    return await _roomCollectionRef.doc(roomId).get();
+  }
 }

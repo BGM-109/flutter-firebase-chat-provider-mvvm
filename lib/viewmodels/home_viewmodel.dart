@@ -29,13 +29,11 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   void onTapUser(String userId, BuildContext context) {
-
     if (userId == "gn3jZorLmdhqN9KzEva8") {
       Fluttertoast.showToast(msg: "본인입니다.");
     } else {
       List<String> members = [userId, "gn3jZorLmdhqN9KzEva8"];
-      FireStoreRoom().findRoom(members, context);
-      // FireStoreRoom().createRoom(members, context);
+      FireStoreRoom().findRoom(members, context, userId);
     }
   }
 }
