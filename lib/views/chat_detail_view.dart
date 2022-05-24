@@ -13,7 +13,6 @@ class ChatDetailView extends StatefulWidget {
 
 class _ChatDetailViewState extends State<ChatDetailView> {
   String _content = "";
-  final _formKey = GlobalKey<FormState>();
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _textEditingController = TextEditingController();
 
@@ -86,7 +85,7 @@ class MessageBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [Text(doc!["content"].toString()), CircleAvatar()],
+      children: [Text(doc!["content"].toString()), const CircleAvatar()],
     );
   }
 }

@@ -1,14 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_chat/models/user_model.dart';
+import 'package:flutter_firebase_chat/service/firestore_user.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AccountViewModel extends ChangeNotifier {
-  UserModel _currentUser = UserModel("음바페", "https://firebasestorage.googleapis.com/v0/b/flutter-firebase-chat-mvvm.appspot.com/o/umbape.jpeg?alt=media&token=ede79999-21a4-4172-9a9f-1c671e1026f6");
+  AccountViewModel() {
+    initUser();
+  }
+
+  final String _currentUserId = "gn3jZorLmdhqN9KzEva8";
+
+  UserModel _currentUser = UserModel(name: "test", profileImg: "", id: "test");
 
   UserModel get currentUser => _currentUser;
 
-  void changeUser(String name) {
-    final UserModel inputUser = UserModel(name, "https://firebasestorage.googleapis.com/v0/b/flutter-firebase-chat-mvvm.appspot.com/o/umbape.jpeg?alt=media&token=ede79999-21a4-4172-9a9f-1c671e1026f6");
-    _currentUser = inputUser;
+  bool isLoad = true;
+
+  String loadMsg = "유저 정보를 불러오고 있습니다.";
+
+  void changeUserName(String name) async {
+    loadMsg = "유저 정보를 변경 중 입니다.";
+    isLoad = true;
+    notifyListeners();
+
+    FireStoreUser().updateUserNameFromId(_currentUserId, name);
+    var doc = await FireStoreUser().getUserFromId(_currentUserId);
+    _currentUser = doc.data() as UserModel;
+    isLoad = false;
+    notifyListeners();
+
+    Fluttertoast.showToast(msg: "닉네임이 변경되었어요", backgroundColor: Colors.grey);
+  }
+
+  void initUser() async {
+    var doc = await FireStoreUser().getUserFromId(_currentUserId);
+    _currentUser = doc.data() as UserModel;
+    isLoad = false;
     notifyListeners();
   }
 }

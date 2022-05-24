@@ -7,8 +7,6 @@ class ChatDetailViewModel extends ChangeNotifier {
     getMessages("test");
   }
 
-  List _messages = [];
-
   Stream<QuerySnapshot> getMessages(String roomId) {
     return FireStoreChat().getChatMessage("test");
   }

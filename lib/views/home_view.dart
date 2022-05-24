@@ -15,10 +15,10 @@ class HomeView extends StatelessWidget {
           )
         : Scaffold(
             appBar: AppBar(
-              title: Text("연락처"),
+              title: const Text("연락처"),
             ),
             body: ListView(children: [
-              SizedBox(
+              const SizedBox(
                 height: 32.0,
               ),
               ...vm.userList
@@ -53,7 +53,7 @@ class ProfileTile extends StatelessWidget {
             width: 16.0,
           ),
           Text(user.name),
-          Divider(
+          const Divider(
             height: 1,
           )
         ],
