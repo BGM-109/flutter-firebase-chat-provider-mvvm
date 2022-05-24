@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_chat/models/user_model.dart';
 import 'package:flutter_firebase_chat/viewmodels/home_viewmodel.dart';
+import 'package:flutter_firebase_chat/widgets/current_user_info.dart';
 import 'package:flutter_firebase_chat/widgets/loader.dart';
+import 'package:flutter_firebase_chat/widgets/profile_tile.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {
@@ -14,57 +15,55 @@ class HomeView extends StatelessWidget {
         ? const Loader(msg: "유저 정보를 불러오고 있습니다.")
         : Scaffold(
             appBar: AppBar(
-              title: const Text("연락처"),
-            ),
-            body: ListView(children: [
-              const SizedBox(
-                height: 32.0,
-              ),
-              ...vm.userList
-                  .map((user) => ProfileTile(
-                        user: user,
-                        onTap: () {
-                          vm.onTapUser(user.id, context);
-                        },
-                      ))
-                  .toList(),
-            ]),
-          );
-  }
-}
-
-class ProfileTile extends StatelessWidget {
-  const ProfileTile({
-    Key? key,
-    required this.user,
-    required this.onTap,
-  }) : super(key: key);
-  final UserModel user;
-  final void Function() onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            CircleAvatar(
-              backgroundImage: NetworkImage(user.profileImg),
+              toolbarHeight: 80.0,
               backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: CurrentUserInfo(
+                userName: vm.currentUser.name,
+                userProfile: vm.currentUser.profileImg,
+              ),
+              actions: [
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.notifications_outlined)),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.add_circle_outline)),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.settings_applications_outlined)),
+              ],
+              actionsIconTheme: const IconThemeData(color: Colors.black),
             ),
-            const SizedBox(
-              width: 16.0,
-            ),
-            Text(user.name),
-            const Divider(
-              height: 1,
-            )
-          ],
-        ),
-      ),
-    );
+            body: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                children: [
+                  TextField(
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        focusColor: Colors.transparent,
+                        filled: true,
+                        prefixIcon: const Icon(
+                          Icons.search,
+                          size: 16.0,
+                        ),
+                        fillColor: Colors.grey.shade200,
+                        hintText: "검색",
+                        hintStyle: const TextStyle(fontSize: 14.0)),
+                  ),
+                  const SizedBox(
+                    height: 32.0,
+                  ),
+                  ...vm.userList
+                      .map((user) => ProfileTile(
+                            user: user,
+                            onTap: () {
+                              vm.onTapUser(user.id, context);
+                            },
+                          ))
+                      .toList(),
+                ]),
+          );
   }
 }
