@@ -26,6 +26,6 @@ class FireStoreChat {
         content: content,
         type: type);
 
-    await ref.add(chatMessages);
+    await ref.add(chatMessages.toJson());
   }
 }

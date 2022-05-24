@@ -10,4 +10,11 @@ class FireStoreRoom {
 
     return results.docs;
   }
+
+  Future<DocumentSnapshot> getRoomMessages() async {
+    const docId = "test";
+    DocumentSnapshot result = await _roomCollectionRef.doc(docId).get();
+
+    return result;
+  }
 }

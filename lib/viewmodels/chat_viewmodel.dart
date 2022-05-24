@@ -7,7 +7,7 @@ class ChatViewModel extends ChangeNotifier {
     fetchRooms();
   }
 
-  List _rooms = [];
+  final List _rooms = [];
 
   List get rooms => _rooms;
 
@@ -19,5 +19,6 @@ class ChatViewModel extends ChangeNotifier {
         });
       }
     });
+    notifyListeners();
   }
 }

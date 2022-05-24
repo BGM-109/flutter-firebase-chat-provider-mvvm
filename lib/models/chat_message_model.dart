@@ -11,4 +11,14 @@ class ChatMessageModel {
       required this.timestamp,
       required this.content,
       required this.type});
+
+  Map<String, Object?> toJson() {
+    return {
+      'idFrom': idFrom,
+      'idTo': idTo,
+      'timestamp': timestamp,
+      'content': content,
+      'type': type,
+    };
+  }
 }

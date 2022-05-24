@@ -128,6 +128,13 @@
             </list>
           </value>
         </entry>
+        <entry key="fluttertoast">
+          <value>
+            <list>
+              <option value="$USER_HOME$/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-8.0.9/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="js">
           <value>
             <list>
@@ -265,6 +272,7 @@
       <root url="file://$USER_HOME$/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.4.0/lib" />
       <root url="file://$USER_HOME$/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.6.4/lib" />
       <root url="file://$USER_HOME$/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-2.0.1/lib" />
+      <root url="file://$USER_HOME$/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-8.0.9/lib" />
       <root url="file://$USER_HOME$/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.4/lib" />
       <root url="file://$USER_HOME$/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/lints-2.0.0/lib" />
       <root url="file://$USER_HOME$/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.11/lib" />

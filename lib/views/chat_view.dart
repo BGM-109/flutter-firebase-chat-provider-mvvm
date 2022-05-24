@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_chat/viewmodels/chat_viewmodel.dart';
+import 'package:flutter_firebase_chat/views/chat_detail_view.dart';
 import 'package:provider/provider.dart';
 
 class ChatView extends StatelessWidget {
@@ -9,7 +10,20 @@ class ChatView extends StatelessWidget {
   Widget build(BuildContext context) {
     final vm = context.watch<ChatViewModel>();
     return ListView(
-      children: vm.rooms.map((r) => Text(r["from"])).toList(),
+      children: vm.rooms
+          .map((r) => InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ChatDetailView()),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Text(r["from"]),
+              )))
+          .toList(),
     );
   }
 }

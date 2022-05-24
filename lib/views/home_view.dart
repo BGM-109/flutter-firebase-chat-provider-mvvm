@@ -11,7 +11,7 @@ class HomeView extends StatelessWidget {
     final vm = context.watch<HomeViewModel>();
     return vm.isLoad
         ? const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(color: Colors.black,),
           )
         : Scaffold(
             appBar: AppBar(
