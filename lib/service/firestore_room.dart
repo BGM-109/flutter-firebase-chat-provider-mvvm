@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_chat/models/user_model.dart';
+import 'package:flutter_firebase_chat/service/firestore_user.dart';
 import 'package:flutter_firebase_chat/views/chat_detail_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -18,8 +20,16 @@ class FireStoreRoom {
     return await _roomCollectionRef.doc(roomId).get();
   }
 
-  void createRoom(List<String> members, BuildContext context, String peerId) {
-    _roomCollectionRef.add({"members": members}).then((value) => {
+  void createRoom(
+      List<String> members, BuildContext context, String peerId) async {
+    var doc = await FireStoreUser().getUserFromId(peerId);
+    UserModel peer = doc.data() as UserModel;
+
+    _roomCollectionRef.add({
+      "members": members,
+      "displayName": peer.name,
+      "displayImg": peer.profileImg
+    }).then((value) => {
           Navigator.push(
               context,
               MaterialPageRoute(

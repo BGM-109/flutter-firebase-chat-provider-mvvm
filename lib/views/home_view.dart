@@ -3,6 +3,7 @@ import 'package:flutter_firebase_chat/viewmodels/home_viewmodel.dart';
 import 'package:flutter_firebase_chat/widgets/current_user_info.dart';
 import 'package:flutter_firebase_chat/widgets/loader.dart';
 import 'package:flutter_firebase_chat/widgets/profile_tile.dart';
+import 'package:flutter_firebase_chat/widgets/search_input.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {
@@ -38,20 +39,7 @@ class HomeView extends StatelessWidget {
             body: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 children: [
-                  TextField(
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        focusColor: Colors.transparent,
-                        filled: true,
-                        prefixIcon: const Icon(
-                          Icons.search,
-                          size: 16.0,
-                        ),
-                        fillColor: Colors.grey.shade200,
-                        hintText: "검색",
-                        hintStyle: const TextStyle(fontSize: 14.0)),
-                  ),
+                  const SearchInput(),
                   const SizedBox(
                     height: 32.0,
                   ),
