@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_chat/models/user_model.dart';
 import 'package:flutter_firebase_chat/viewmodels/home_viewmodel.dart';
+import 'package:flutter_firebase_chat/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {
@@ -10,9 +11,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final vm = context.watch<HomeViewModel>();
     return vm.isLoad
-        ? const Center(
-            child: CircularProgressIndicator(color: Colors.black,),
-          )
+        ? const Loader(msg: "유저 정보를 불러오고 있습니다.")
         : Scaffold(
             appBar: AppBar(
               title: const Text("연락처"),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_chat/viewmodels/account_viewmodel.dart';
+import 'package:flutter_firebase_chat/widgets/loader.dart';
 import 'package:flutter_firebase_chat/widgets/user_info_box.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class AccountView extends StatefulWidget {
@@ -64,33 +64,6 @@ class _AccountViewState extends State<AccountView> {
                 ),
               ),
             ),
-    );
-  }
-}
-
-class Loader extends StatelessWidget {
-  const Loader({
-    Key? key,
-    required this.msg,
-  }) : super(key: key);
-
-  final String msg;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const CircularProgressIndicator(
-            color: Colors.black,
-          ),
-          const SizedBox(
-            height: 24.0,
-          ),
-          Text(msg),
-        ],
-      ),
     );
   }
 }

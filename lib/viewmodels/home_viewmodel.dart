@@ -15,9 +15,12 @@ class HomeViewModel extends ChangeNotifier {
 
   bool get isLoad => _isLoad;
 
-  Future<void> fetchUserList() async {
-    FireStoreUser().getUsers().then((docs) {
-      for (int i = 0; i < docs.length; i++) {}
+  void fetchUserList() async {
+    await FireStoreUser().getUsers().then((docs) {
+      docs.forEach((doc) {
+        UserModel data = doc.data() as UserModel;
+        _userList.add(data);
+      });
     });
     _isLoad = false;
     notifyListeners();
