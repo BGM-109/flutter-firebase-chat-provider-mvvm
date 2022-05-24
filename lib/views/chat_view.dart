@@ -32,6 +32,7 @@ class ChatView extends StatelessWidget {
         actionsIconTheme: const IconThemeData(color: Colors.black),
       ),
       body: ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         children: [
           const SearchInput(),
@@ -47,6 +48,7 @@ class ChatView extends StatelessWidget {
                   if (listRooms.isNotEmpty) {
                     return ListView.builder(
                       shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: listRooms.length,
                       itemBuilder: (context, index) {
                         String peerId =

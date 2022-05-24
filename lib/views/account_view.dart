@@ -18,52 +18,59 @@ class _AccountViewState extends State<AccountView> {
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<AccountViewModel>();
-    return Form(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      key: _formKey,
-      child: vm.isLoad
-          ? Loader(msg: vm.loadMsg)
-          : Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    UserInfoBox(um: vm.currentUser),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.drive_file_rename_outline),
-                          labelText: "닉네임변경",
-                          border: OutlineInputBorder()),
-                      validator: (value) {
-                        if (value != null && value.length < 2) {
-                          return "닉네임은 2글자 이상 입력해주세요";
-                        } else if (value != null &&
-                            value == vm.currentUser.name) {
-                          return "다른 닉네임을 넣어 주세요";
-                        } else {
-                          return null;
-                        }
-                      },
-                      onChanged: (value) {
-                        nickName = value;
-                      },
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          final bool isValid =
-                              _formKey.currentState!.validate();
-                          if (isValid) {
-                            vm.changeUserName(nickName);
-                            _formKey.currentState!.reset();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.black),
+      ),
+      body: Form(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        key: _formKey,
+        child: vm.isLoad
+            ? Loader(msg: vm.loadMsg)
+            : Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      UserInfoBox(um: vm.currentUser),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.drive_file_rename_outline),
+                            labelText: "닉네임변경",
+                            border: OutlineInputBorder()),
+                        validator: (value) {
+                          if (value != null && value.length < 2) {
+                            return "닉네임은 2글자 이상 입력해주세요";
+                          } else if (value != null &&
+                              value == vm.currentUser.name) {
+                            return "다른 닉네임을 넣어 주세요";
+                          } else {
+                            return null;
                           }
                         },
-                        child: const Text("변경하기")),
-                  ],
+                        onChanged: (value) {
+                          nickName = value;
+                        },
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            final bool isValid =
+                                _formKey.currentState!.validate();
+                            if (isValid) {
+                              vm.changeUserName(nickName);
+                              _formKey.currentState!.reset();
+                            }
+                          },
+                          child: const Text("변경하기")),
+                    ],
+                  ),
                 ),
               ),
-            ),
+      ),
     );
   }
 }

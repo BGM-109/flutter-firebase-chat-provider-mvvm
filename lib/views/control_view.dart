@@ -11,21 +11,33 @@ class ControlView extends StatelessWidget {
     return Scaffold(
       body: vm.currentView(),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        iconSize: 25,
+        selectedItemColor: Colors.black,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        selectedFontSize: 10,
+        unselectedFontSize: 10,
+        unselectedItemColor: Colors.black,
         currentIndex: vm.currentIndex,
         onTap: vm.changeIndex,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.call),
-            label: '연락처',
-          ),
+              icon: Icon(Icons.home_outlined),
+              label: '홈',
+              activeIcon: Icon(Icons.home)),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: '채팅',
-          ),
+              icon: Icon(Icons.chat_outlined),
+              label: '대화',
+              activeIcon: Icon(Icons.chat)),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: '유저정보',
-          ),
+              icon: Icon(Icons.access_time_outlined),
+              label: '타임라인',
+              activeIcon: Icon(Icons.access_time_filled)),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.call_outlined),
+              label: '통화',
+              activeIcon: Icon(Icons.call)),
         ],
       ),
     );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_chat/views/account_view.dart';
 import 'package:flutter_firebase_chat/views/chat_view.dart';
 import 'package:flutter_firebase_chat/views/home_view.dart';
 
@@ -20,7 +19,13 @@ class ControlViewModel extends ChangeNotifier {
       case 1:
         return const ChatView();
       case 2:
-        return const AccountView();
+        return const Center(
+          child: Text("404 PAGE"),
+        );
+      case 3:
+        return const Center(
+          child: Text("404 PAGE"),
+        );
       default:
         return Container();
     }

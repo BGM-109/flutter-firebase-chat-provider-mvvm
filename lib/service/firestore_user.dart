@@ -19,10 +19,6 @@ class FireStoreUser {
   }
 
   Future<void> updateUserNameFromId(String docId, String name) {
-    return _userCollectionRef
-        .doc(docId)
-        .update({'name': name})
-        .then((value) => print("User Updated"))
-        .catchError((error) => print("Failed to update user: $error"));
+    return _userCollectionRef.doc(docId).update({'name': name});
   }
 }

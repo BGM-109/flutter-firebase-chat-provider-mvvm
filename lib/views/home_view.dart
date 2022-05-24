@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_chat/viewmodels/home_viewmodel.dart';
+import 'package:flutter_firebase_chat/views/account_view.dart';
 import 'package:flutter_firebase_chat/widgets/current_user_info.dart';
 import 'package:flutter_firebase_chat/widgets/loader.dart';
 import 'package:flutter_firebase_chat/widgets/profile_tile.dart';
@@ -31,7 +32,12 @@ class HomeView extends StatelessWidget {
                     onPressed: () {},
                     icon: const Icon(Icons.add_circle_outline)),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AccountView()));
+                    },
                     icon: const Icon(Icons.settings_applications_outlined)),
               ],
               actionsIconTheme: const IconThemeData(color: Colors.black),
