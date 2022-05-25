@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase_chat/models/user_model.dart';
 import 'package:flutter_firebase_chat/service/firestore_user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_firebase_chat/constants.dart' as constants;
 
 class AccountViewModel extends ChangeNotifier {
   AccountViewModel() {
     initUser();
   }
 
-  final String _currentUserId = "gn3jZorLmdhqN9KzEva8";
-
-  UserModel _currentUser = UserModel(name: "test", profileImg: "", id: "test");
+  UserModel _currentUser = UserModel(name: "", profileImg: "", id: "");
 
   UserModel get currentUser => _currentUser;
 
@@ -23,8 +22,8 @@ class AccountViewModel extends ChangeNotifier {
     isLoad = true;
     notifyListeners();
 
-    FireStoreUser().updateUserNameFromId(_currentUserId, name);
-    var doc = await FireStoreUser().getUserFromId(_currentUserId);
+    FireStoreUser().updateUserNameFromId(constants.CURRENT_USER_ID, name);
+    var doc = await FireStoreUser().getUserFromId(constants.CURRENT_USER_ID);
     _currentUser = doc.data() as UserModel;
     isLoad = false;
     notifyListeners();
@@ -33,7 +32,7 @@ class AccountViewModel extends ChangeNotifier {
   }
 
   void initUser() async {
-    var doc = await FireStoreUser().getUserFromId(_currentUserId);
+    var doc = await FireStoreUser().getUserFromId(constants.CURRENT_USER_ID);
     _currentUser = doc.data() as UserModel;
     isLoad = false;
     notifyListeners();

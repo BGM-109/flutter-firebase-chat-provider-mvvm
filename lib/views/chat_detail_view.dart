@@ -27,7 +27,6 @@ class _ChatDetailViewState extends State<ChatDetailView> {
 
   @override
   void initState() {
-    super.initState();
     Future.delayed(Duration.zero, () async {
       var doc = await FireStoreUser().getUserFromId(widget.peerId);
       UserModel peer = doc.data() as UserModel;
@@ -35,6 +34,7 @@ class _ChatDetailViewState extends State<ChatDetailView> {
       peerName = peer.name;
       setState(() {});
     });
+    super.initState();
   }
 
   @override
@@ -70,45 +70,43 @@ class _ChatDetailViewState extends State<ChatDetailView> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Expanded(
-              child: Flexible(
-                child: StreamBuilder<QuerySnapshot>(
-                  stream: vm.getMessages(widget.roomId),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasData) {
-                      var listMessages = snapshot.data!.docs;
-                      if (listMessages.isNotEmpty) {
-                        return ListView.builder(
-                            padding: const EdgeInsets.all(10),
-                            itemCount: snapshot.data?.docs.length,
-                            reverse: true,
-                            controller: _scrollController,
-                            itemBuilder: (context, index) {
-                              String profileImg = constants.CURRENT_USER_ID ==
-                                      snapshot.data?.docs[index]["idFrom"]
-                                  ? constants.CURRENT_USER_PROFILE_IMG
-                                  : peerProfileImg;
-                              return MessageBox(
-                                content: snapshot.data?.docs[index]["content"],
-                                idTo: snapshot.data?.docs[index]["idTo"],
-                                idFrom: snapshot.data?.docs[index]["idFrom"],
-                                profileImg: profileImg,
-                              );
-                            });
-                      } else {
-                        return const Center(
-                          child: Text('메세지가 없습니다.'),
-                        );
-                      }
+              child: StreamBuilder<QuerySnapshot>(
+                stream: vm.getMessages(widget.roomId),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasData) {
+                    var listMessages = snapshot.data!.docs;
+                    if (listMessages.isNotEmpty) {
+                      return ListView.builder(
+                          padding: const EdgeInsets.all(10),
+                          itemCount: snapshot.data?.docs.length,
+                          reverse: true,
+                          controller: _scrollController,
+                          itemBuilder: (context, index) {
+                            String profileImg = constants.CURRENT_USER_ID ==
+                                    snapshot.data?.docs[index]["idFrom"]
+                                ? constants.CURRENT_USER_PROFILE_IMG
+                                : peerProfileImg;
+                            return MessageBox(
+                              content: snapshot.data?.docs[index]["content"],
+                              idTo: snapshot.data?.docs[index]["idTo"],
+                              idFrom: snapshot.data?.docs[index]["idFrom"],
+                              profileImg: profileImg,
+                            );
+                          });
                     } else {
                       return const Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.black,
-                        ),
+                        child: Text('메세지가 없습니다.'),
                       );
                     }
-                  },
-                ),
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.black,
+                      ),
+                    );
+                  }
+                },
               ),
             ),
             Container(

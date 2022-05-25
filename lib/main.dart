@@ -25,6 +25,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
       ],
       child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: ControlView(),
       ),
     ),
