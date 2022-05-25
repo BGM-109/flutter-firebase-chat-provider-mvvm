@@ -6,6 +6,7 @@ import 'package:flutter_firebase_chat/viewmodels/chat_detail_viewmodel.dart';
 import 'package:flutter_firebase_chat/widgets/message_box.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_firebase_chat/constants.dart' as constants;
 
 class ChatDetailView extends StatefulWidget {
   const ChatDetailView({Key? key, required this.roomId, required this.peerId})
@@ -65,68 +66,109 @@ class _ChatDetailViewState extends State<ChatDetailView> {
           actionsIconTheme: const IconThemeData(color: Colors.black),
         ),
         body: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Flexible(
-              child: StreamBuilder<QuerySnapshot>(
-                stream: vm.getMessages(widget.roomId),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasData) {
-                    var listMessages = snapshot.data!.docs;
-                    if (listMessages.isNotEmpty) {
-                      return ListView.builder(
-                          padding: const EdgeInsets.all(10),
-                          itemCount: snapshot.data?.docs.length,
-                          reverse: true,
-                          controller: _scrollController,
-                          itemBuilder: (context, index) {
-                            const currentUserId = "gn3jZorLmdhqN9KzEva8";
-                            const currentUserProfile =
-                                "https://firebasestorage.googleapis.com/v0/b/flutter-firebase-chat-mvvm.appspot.com/o/20201110160126516.jpeg?alt=media&token=bc979b27-5e0a-494c-8aaf-f93c9ae2a8ca";
-                            String profileImg = currentUserId ==
-                                    snapshot.data?.docs[index]["idFrom"]
-                                ? currentUserProfile
-                                : peerProfileImg;
-                            return MessageBox(
-                              content: snapshot.data?.docs[index]["content"],
-                              idTo: snapshot.data?.docs[index]["idTo"],
-                              idFrom: snapshot.data?.docs[index]["idFrom"],
-                              profileImg: profileImg,
-                            );
-                          });
+            Expanded(
+              child: Flexible(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: vm.getMessages(widget.roomId),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasData) {
+                      var listMessages = snapshot.data!.docs;
+                      if (listMessages.isNotEmpty) {
+                        return ListView.builder(
+                            padding: const EdgeInsets.all(10),
+                            itemCount: snapshot.data?.docs.length,
+                            reverse: true,
+                            controller: _scrollController,
+                            itemBuilder: (context, index) {
+                              String profileImg = constants.CURRENT_USER_ID ==
+                                      snapshot.data?.docs[index]["idFrom"]
+                                  ? constants.CURRENT_USER_PROFILE_IMG
+                                  : peerProfileImg;
+                              return MessageBox(
+                                content: snapshot.data?.docs[index]["content"],
+                                idTo: snapshot.data?.docs[index]["idTo"],
+                                idFrom: snapshot.data?.docs[index]["idFrom"],
+                                profileImg: profileImg,
+                              );
+                            });
+                      } else {
+                        return const Center(
+                          child: Text('메세지가 없습니다.'),
+                        );
+                      }
                     } else {
                       return const Center(
-                        child: Text('메세지가 없습니다.'),
+                        child: CircularProgressIndicator(
+                          color: Colors.black,
+                        ),
                       );
                     }
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.black,
-                      ),
-                    );
-                  }
-                },
+                  },
+                ),
               ),
             ),
-            TextField(
-              controller: _textEditingController,
-              onChanged: (text) {
-                _content = text;
-              },
-              onSubmitted: (value) {
-                if (_content.trim().isNotEmpty) {
-                  vm.sendMessage(_content, 1, widget.roomId,
-                      "gn3jZorLmdhqN9KzEva8", widget.peerId);
-                  _textEditingController.clear();
-                  _scrollController.animateTo(0,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeOut);
-                } else {
-                  Fluttertoast.showToast(
-                      msg: '메세지를 입력해주세요', backgroundColor: Colors.grey);
-                }
-              },
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
+              width: double.infinity,
+              height: 70,
+              color: Colors.white,
+              child: Row(
+                children: [
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.camera_alt_outlined)),
+                  IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.image_outlined)),
+                  Expanded(
+                    child: SizedBox(
+                      width: 50,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 15.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: BorderSide.none),
+                          fillColor: Colors.grey.shade200,
+                          filled: true,
+                          hintText: "Aa",
+                          suffixIcon: const Icon(
+                            Icons.emoji_emotions_outlined,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        controller: _textEditingController,
+                        onChanged: (text) {
+                          _content = text;
+                        },
+                        onSubmitted: (value) {
+                          if (_content.trim().isNotEmpty) {
+                            vm.sendMessage(_content, 1, widget.roomId,
+                                constants.CURRENT_USER_ID, widget.peerId);
+                            _textEditingController.clear();
+                            _scrollController.animateTo(0,
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeOut);
+                          } else {
+                            Fluttertoast.showToast(
+                                msg: '메세지를 입력해주세요',
+                                backgroundColor: Colors.grey);
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.mic_none_outlined)),
+                ],
+              ),
             )
           ],
         ));

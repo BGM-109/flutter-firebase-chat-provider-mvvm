@@ -16,48 +16,48 @@ class HomeView extends StatelessWidget {
     return vm.isLoad
         ? const Loader(msg: "유저 정보를 불러오고 있습니다.")
         : Scaffold(
-            appBar: AppBar(
-              toolbarHeight: 80.0,
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              title: CurrentUserInfo(
-                userName: vm.currentUser.name,
-                userProfile: vm.currentUser.profileImg,
-              ),
-              actions: [
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.notifications_outlined)),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.add_circle_outline)),
-                IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const AccountView()));
-                    },
-                    icon: const Icon(Icons.settings_applications_outlined)),
-              ],
-              actionsIconTheme: const IconThemeData(color: Colors.black),
+      appBar: AppBar(
+        toolbarHeight: 80.0,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: CurrentUserInfo(
+          userName: vm.currentUser.name,
+          userProfile: vm.currentUser.profileImg,
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.notifications_outlined)),
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.add_circle_outline)),
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AccountView()));
+              },
+              icon: const Icon(Icons.settings_applications_outlined)),
+        ],
+        actionsIconTheme: const IconThemeData(color: Colors.black),
+      ),
+      body: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          children: [
+            const SearchInput(),
+            const SizedBox(
+              height: 32.0,
             ),
-            body: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                children: [
-                  const SearchInput(),
-                  const SizedBox(
-                    height: 32.0,
-                  ),
-                  ...vm.userList
-                      .map((user) => ProfileTile(
-                            user: user,
-                            onTap: () {
-                              vm.onTapUser(user.id, context);
-                            },
-                          ))
-                      .toList(),
-                ]),
-          );
+            ...vm.userList
+                .map((user) => ProfileTile(
+              user: user,
+              onTap: () {
+                vm.onTapUser(user.id, context);
+              },
+            ))
+                .toList(),
+          ]),
+    );
   }
 }
